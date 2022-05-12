@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WorkTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +16,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    return view('welcome');
+});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/dashboard', function () {
+        return view(view: 'dashboard');
+    })->name('dashboard');
+
+    Route::get('/profile', [ProfileController::class, 'show'])->name(name: 'profile');
+
+    Route::resource('worktypes', WorkTypeController::class);
+    Route::get('worktypes', [WorkTypeController::class, 'index'])->name(name: 'worktypes');
+});
+
 
 require __DIR__.'/auth.php';
