@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\WorkTypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/profile', [ProfileController::class, 'show'])->name(name: 'profile');
 
     Route::resource('worktypes', WorkTypeController::class);
-    Route::get('worktypes', [WorkTypeController::class, 'index'])->name(name: 'worktypes');
+    Route::resource('projects', ProjectController::class);
 });
 
 

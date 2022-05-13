@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WorkType;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
-class WorkTypeController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class WorkTypeController extends Controller
      */
     public function index()
     {
-        $worktypes = WorkType::paginate(10);
+        $projects = Project::paginate();
 
-        return view('worktypes.index', compact('worktypes'));
+        return view('projects.index', compact('projects'));
     }
 
     /**

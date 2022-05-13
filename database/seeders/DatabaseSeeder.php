@@ -40,6 +40,39 @@ class DatabaseSeeder extends Seeder
         $worktype = WorkType::create([
             'name' => 'Programming'
         ]);
+        $worktype = WorkType::create([
+            'name' => 'Marketing'
+        ]);
+
+        $worktype = WorkType::create([
+            'name' => 'Advertising'
+        ]);
+
+        $worktype = WorkType::create([
+            'name' => 'Developing'
+        ]);
+        $worktype = WorkType::create([
+            'name' => 'Backend development'
+        ]);
+
+        $worktype = WorkType::create([
+            'name' => 'Frontend development'
+        ]);
+
+        $worktype = WorkType::create([
+            'name' => 'Routing'
+        ]);
+        $worktype = WorkType::create([
+            'name' => 'CSS'
+        ]);
+
+        $worktype = WorkType::create([
+            'name' => 'JavaScript'
+        ]);
+
+        $worktype = WorkType::create([
+            'name' => 'PHP'
+        ]);
 
         $project = Project::where('id', 1)->first();
         $user = User::where('id', 1)->first();
