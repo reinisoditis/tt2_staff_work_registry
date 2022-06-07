@@ -12,6 +12,17 @@ class Work extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'from',
+        'to',
+        'time_spent_min',
+        'comment',
+        'project_id',
+        'worktype_id',
+        'user_id'
+    ];
+
+
     public function project(){
         return $this->belongsTo(Project::class);
     }

@@ -26,7 +26,7 @@ class WorkTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('worktypes.create');
     }
 
     /**
@@ -37,7 +37,14 @@ class WorkTypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        WorkType::create($request->all());
+
+        return redirect()->route('worktypes.index')
+                        ->with('success','WorkType created successfully.');
     }
 
     /**
@@ -57,9 +64,9 @@ class WorkTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(WorkType $worktype)
     {
-        //
+        return view('worktypes.edit',compact('worktype'));
     }
 
     /**
@@ -69,9 +76,16 @@ class WorkTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, WorkType $worktype)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $worktype->update($request->all());
+
+        return redirect()->route('worktypes.index')
+                        ->with('success','WorkType updated successfully');
     }
 
     /**
@@ -85,6 +99,6 @@ class WorkTypeController extends Controller
         $worktype->delete();
 
         return redirect()->route('worktypes.index')
-                        ->with('success','Product deleted successfully');
+                        ->with('success','WorkType deleted successfully');
     }
 }

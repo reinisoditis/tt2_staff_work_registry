@@ -14,7 +14,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate();
+        $projects = Project::paginate(10);
 
         return view('projects.index', compact('projects'));
     }
@@ -26,7 +26,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects.create');
     }
 
     /**
@@ -37,7 +37,20 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array(
+            'name' => 'required',
+            'status' => 'required'
+        );
+
+        $validated = $this->validate($request, $rules);
+
+        $project = new Project();
+        $project->name = $validated["name"];
+        $project->status = $validated["status"];
+        $project->save();
+
+        return redirect()->route('projects.index')
+                        ->with('success','Project created successfully.');
     }
 
     /**
@@ -57,9 +70,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('projects.edit',compact('project'));
     }
 
     /**
@@ -69,9 +82,22 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $rules = array(
+            'name' => 'required',
+            'status' => 'required'
+        );
+
+        $validated = $this->validate($request, $rules);
+
+        $project = Project::where('id', $project->id)->first();
+        $project->name = $validated["name"];
+        $project->status = $validated["status"];
+        $project->save();
+
+        return redirect()->route('projects.index')
+                        ->with('success','Project updated successfully');
     }
 
     /**
@@ -80,8 +106,11 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect()->route('projects.index')
+                        ->with('success','Project deleted successfully');
     }
 }
