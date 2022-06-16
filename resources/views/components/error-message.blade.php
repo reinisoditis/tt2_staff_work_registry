@@ -1,6 +1,6 @@
 @if ($errors->any())
     <div class="text-red-600 mb-4">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        {{__('messages.whops')}}<br><br>
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>

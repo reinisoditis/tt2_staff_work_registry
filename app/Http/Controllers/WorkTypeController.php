@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Work;
 use App\Models\WorkType;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,7 @@ class WorkTypeController extends Controller
      */
     public function create()
     {
+        $this->authorize('worktypes.create');
         return view('worktypes.create');
     }
 
@@ -37,6 +39,7 @@ class WorkTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('worktypes.create');
         $request->validate([
             'name' => 'required'
         ]);
@@ -44,7 +47,7 @@ class WorkTypeController extends Controller
         WorkType::create($request->all());
 
         return redirect()->route('worktypes.index')
-                        ->with('success','WorkType created successfully.');
+                        ->with('success', __('messages.wtcs'));
     }
 
     /**
@@ -66,6 +69,7 @@ class WorkTypeController extends Controller
      */
     public function edit(WorkType $worktype)
     {
+        $this->authorize('worktypes.edit');
         return view('worktypes.edit',compact('worktype'));
     }
 
@@ -78,6 +82,7 @@ class WorkTypeController extends Controller
      */
     public function update(Request $request, WorkType $worktype)
     {
+        $this->authorize('worktypes.edit');
         $request->validate([
             'name' => 'required'
         ]);
@@ -85,7 +90,7 @@ class WorkTypeController extends Controller
         $worktype->update($request->all());
 
         return redirect()->route('worktypes.index')
-                        ->with('success','WorkType updated successfully');
+                        ->with('success', __('messages.wtus'));
     }
 
     /**
@@ -96,9 +101,15 @@ class WorkTypeController extends Controller
      */
     public function destroy(WorkType $worktype)
     {
-        $worktype->delete();
-
-        return redirect()->route('worktypes.index')
-                        ->with('success','WorkType deleted successfully');
+        $this->authorize('worktypes.delete');
+            if(Work::where('worktype_id', '=', $worktype->id)->exists()){
+                return redirect()->route('worktypes.index')
+                            ->withErrors(__('messages.cant'));
+            }
+            else{
+                $worktype->delete();
+                return redirect()->route('worktypes.index')
+                        ->with('success', __('messages.wtds'));
+            }
     }
 }

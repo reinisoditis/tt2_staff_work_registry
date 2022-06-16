@@ -26,7 +26,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('profile')->with('success', 'Profile saved successfully');
+        return redirect()->route('profile')->with('success', __('messages.pss'));
     }
 
     public function update_avatar(Request $request)

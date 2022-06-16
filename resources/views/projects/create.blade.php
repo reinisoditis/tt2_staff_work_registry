@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Project') }}
+            {{ __('project.crp2') }}
         </h2>
     </x-slot>
 
@@ -13,23 +13,23 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div>
                         <x-error-message></x-error-message>
-                        <x-button class="mb-2"><a href="{{ route('projects.index') }}"> Back</a></x-button>
-                        <label for="name" class="block text-lg font-medium text-gray-700 py-2 uppercase">Name</label>
+                        <x-button class="mb-2"><a href="{{ route('projects.index') }}">{{ __('crud.back') }}</a></x-button>
+                        <label for="name" class="block text-lg font-medium text-gray-700 py-2 uppercase">{{ __('crud.name') }}</label>
                         <div class="mt-1 relative rounded-md shadow-sm">
-                          <input type="text" name="name" id="name" class="border py-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-500 block w-full pl-2 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="Project Name">
+                          <input type="text" name="name" id="name" class="border py-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-500 block w-full pl-2 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="{{ __('project.np') }}">
                           <div class="absolute inset-y-0 right-0 flex items-center">
                           </div>
                         </div>
                         <div class="py-2">
-                        <label for="status" class="sr-only">Status</label>
+                        <label for="status" class="sr-only">{{ __('crud.status') }}</label>
                         <select id="status" name="status" class="border focus:ring-indigo-500 focus:border-indigo-500 h-full py-2 pl-2 pr-7 bg-transparent text-gray-500 sm:text-sm rounded-md">
-                          <option value=1>Active</option>
-                          <option value=0>Inactive</option>
+                          <option value=1>{{ __('crud.active') }}</option>
+                          <option value=0>{{ __('crud.inactive') }}</option>
                         </select>
                         </div>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <x-button type="submit" >Submit</x-button>
+                        <x-button type="submit" >{{ __('crud.submit') }}</x-button>
                     </div>
                 </div>
             </div>
