@@ -74,12 +74,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'PHP'
         ]);
 
-        $project = Project::where('id', 1)->first();
-        $user = User::where('id', 1)->first();
-        $user_project = new User_Project();
-        $user_project->user()->associate($user);
-        $user_project->project()->associate($project);
-        $user_project->save();
 
         $project = Project::where('id', 1)->first();
         $worktype = WorkType::where('name', 'Testing')->first();

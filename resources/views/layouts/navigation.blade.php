@@ -13,23 +13,53 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('dboard.title') }}
                     </x-nav-link>
                     <x-nav-link :href="route('worktypes.index')" :active="request()->routeIs('worktypes.index')">
-                        {{ __('Work Types') }}
+                        {{ __('worktypes.title') }}
                     </x-nav-link>
                     <x-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
-                        {{ __('Projects') }}
+                        {{ __('project.title') }}
                     </x-nav-link>
+                    @can('users.index')
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        {{ __('user.title') }}
+                    </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
+
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="pr-4">
+                <x-dropdown align="right" width="48">
+                    <x-slot name="trigger">
+                        <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">                            <div>
+                            {{ Config::get('languages')[App::getLocale()] }}
+                            </div>
+                            <div class="ml-1">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        @foreach (Config::get('languages') as $lang => $language)
+                        @if ($lang != App::getLocale())
+                                <x-dropdown-link  :href="route('lang.switch', $lang)">{{$language}}</a></x-dropdown-link>
+                        @endif
+                         @endforeach
+                    </x-slot>
+                </x-dropdown>
+            </div>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <img src="images/avatars/{{ Auth::user()->avatar }}" style="width:40px; height:40px; border-radius:50%;" class="mr-2">
+                            <img src="/images/avatars/{{ Auth::user()->avatar }}" style="width:40px; height:40px; border-radius:50%;" class="mr-2">
                             <div>
                                 {{ Auth::user()->name }}
                             </div>
@@ -46,7 +76,7 @@
 
                     <x-slot name="content">
                             <x-dropdown-link :href="route('profile')">
-                                {{ __('My Profile') }}
+                                {{ __('nav.myprofile') }}
                             </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -55,7 +85,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('nav.logout') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -78,8 +108,22 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('dboard.title') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('worktypes.index')" :active="request()->routeIs('worktypes.index')">
+                {{ __('worktypes.title') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('projects.index')" :active="request()->routeIs('projects.index')">
+                {{ __('project.title') }}
+            </x-responsive-nav-link>
+            @can('users.index')
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                {{ __('user.title') }}
+            </x-responsive-nav-link>
+            @endcan
+
+
+
         </div>
 
         <!-- Responsive Settings Options -->
@@ -91,7 +135,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile')">
-                        {{ __('My Profile') }}
+                        {{ __('nav.myprofile') }}
                      </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -101,7 +145,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('nav.logout') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

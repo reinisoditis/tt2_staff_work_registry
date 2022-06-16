@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Work;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $this->authorize('projects.create');
         return view('projects.create');
     }
 
@@ -37,6 +39,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('projects.create');
         $rules = array(
             'name' => 'required',
             'status' => 'required'
@@ -50,7 +53,7 @@ class ProjectController extends Controller
         $project->save();
 
         return redirect()->route('projects.index')
-                        ->with('success','Project created successfully.');
+                        ->with('success', __('messages.pjcs'));
     }
 
     /**
@@ -72,6 +75,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $this->authorize('projects.edit');
         return view('projects.edit',compact('project'));
     }
 
@@ -84,6 +88,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
+        $this->authorize('projects.edit');
         $rules = array(
             'name' => 'required',
             'status' => 'required'
@@ -97,7 +102,7 @@ class ProjectController extends Controller
         $project->save();
 
         return redirect()->route('projects.index')
-                        ->with('success','Project updated successfully');
+                        ->with('success', __('messages.pjus'));
     }
 
     /**
@@ -108,9 +113,15 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        $project->delete();
-
-        return redirect()->route('projects.index')
-                        ->with('success','Project deleted successfully');
+        $this->authorize('projects.delete');
+        if(Work::where('project_id', '=', $project->id)->exists()){
+            return redirect()->route('projects.index')
+                        ->withErrors(__('messages.cant'));
+        }
+        else{
+            $project->delete();
+            return redirect()->route('projects.index')
+                        ->with('success', __('messages.pjds'));
+        }
     }
 }

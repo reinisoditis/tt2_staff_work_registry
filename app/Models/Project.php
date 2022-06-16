@@ -16,8 +16,4 @@ class Project extends Model
     public function works(){
         return $this->hasMany(Work::class);
     }
-
-    public function user_project(){
-        return $this->hasMany(User_Project::class);
-    }
 }

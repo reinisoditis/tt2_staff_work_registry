@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('dboard.title') }}
         </h2>
     </x-slot>
 
@@ -11,19 +11,19 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex flex-row">
                         <div class="flex-1 px-4 border sm:rounded-lg mx-4 py-4 text-sm font-medium">
-                            <h2 class=" mb-2 text-xl leading-7  text-gray-700">Register Work Reports</h2>
-                            <p class="text-sm text-gray-500">Creates hourly reports for project work</p>
-                            <x-button class="py-4 mt-4"><a href="{{ route('works.create') }}"> Create</a></x-button>
+                            <h2 class=" mb-2 text-xl leading-7  text-gray-700">{{ __('dboard.register_wreports') }}</h2>
+                            <p class="text-sm text-gray-500">{{ __('dboard.wreports_text') }}</p>
+                            <x-button class="py-4 mt-4"><a href="{{ route('works.create') }}">{{ __('dboard.create') }}</a></x-button>
                         </div>
                         <div class="flex-1 px-4 border sm:rounded-lg mx-4 py-4 text-sm font-medium">
-                            <h2 class=" mb-2 text-xl leading-7  text-gray-700">Personal Report</h2>
-                            <p class="text-sm text-gray-500">Get a personal overview of working on projects</p>
-                            <x-button class="py-4 mt-4"><a class="text-indigo-600 hover:text-indigo-900"> Show</a></x-button>
+                            <h2 class=" mb-2 text-xl leading-7  text-gray-700">{{ __('dboard.preport') }}</h2>
+                            <p class="text-sm text-gray-500">{{ __('dboard.preporttext') }}</p>
+                            <x-button class="py-4 mt-4"><a href="{{ route('reports.personal_index') }}">{{ __('dboard.show') }}</a></x-button>
                         </div>
                         <div class="flex-1 px-4 border sm:rounded-lg mx-4 py-4 text-sm font-medium">
-                            <h2 class=" mb-2 text-xl leading-7  text-gray-700">Project Reports</h2>
-                            <p class="text-sm text-gray-500">Get reports on the progress of projects</p>
-                            <x-button class="py-4 mt-4">Show</x-button>
+                            <h2 class=" mb-2 text-xl leading-7  text-gray-700">{{ __('dboard.pjreport') }}</h2>
+                            <p class="text-sm text-gray-500">{{ __('dboard.pjreporttext') }}</p>
+                            <x-button class="py-4 mt-4"><a href="{{ route('reports.project_index') }}">{{ __('dboard.show') }}</a></x-button>
                         </div>
                     </div>
                 </div>

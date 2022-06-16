@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,9 +24,10 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules()
     {
+        $user = Auth::user();
         return [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,'.$user->id,
             'password' => 'min:8|confirmed'
         ];
     }

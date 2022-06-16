@@ -16,7 +16,8 @@ class DashboardController extends Controller
                 ->join ('work_types', 'worktype_id', '=', 'work_types.id')
                 ->select('works.*', 'projects.name as project_name','work_types.name as worktype_name')
                 ->where('user_id', '=', $user->id)
-                ->get();
+                ->orderBy('works.to', 'desc')
+                ->paginate(10);
         return view('dashboard', ['works' => $works]);
     }
 }

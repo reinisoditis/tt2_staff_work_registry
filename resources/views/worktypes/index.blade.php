@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Work Types') }}
+            {{ __('worktypes.title') }}
         </h2>
     </x-slot>
 
@@ -13,19 +13,18 @@
                     <div class="flex flex-col">
                         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                <x-button class="mb-4"><a href="{{ route('worktypes.create') }}"> Create New WorkType</a></x-button>
+                                <x-error-message></x-error-message>
+                                @can('worktypes.create')
+                                    <x-button class="mb-4"><a href="{{ route('worktypes.create') }}">{{ __('worktypes.crwt') }}</a></x-button>
+                                @endcan
                                     <div class="shadow overflow-hidden  sm:rounded-lg">
                                         <table class="hover:min-w-full w-full">
                                             <thead class="bg-gray-50 table-fixed" >
                                             <tr>
                                                 <th scope="col" class="border text-lg font-medium text-gray-500  uppercase">
-                                                    Name
+                                                    {{ __('crud.name') }}
                                                 </th>
                                                 <th scope="col" class="border">
-                                                    <span class="sr-only">Edit</span>
-                                                </th>
-                                                <th scope="col" class="border">
-                                                    <span class="sr-only">Delete</span>
                                                 </th>
                                             </tr>
                                             </thead>
@@ -36,14 +35,18 @@
                                                     {{ $worktype->name }}
                                                 </td>
                                                 <td  class="border px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                                    <a class="text-indigo-600 hover:text-indigo-900" href="{{ route('worktypes.edit', $worktype->id) }}"> Edit</a>
-                                                </td>
-                                                <td  class="border px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                                    <form action="{{ action([App\Http\Controllers\WorkTypeController::class, 'destroy'], $worktype->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="text-indigo-600 hover:text-indigo-900">Delete</button>
-                                                    </form>
+                                                    <div class="flex flex-row justify-center">
+                                                        @can('worktypes.edit')
+                                                            <a class="text-indigo-600 hover:text-indigo-900 px-4" href="{{ route('worktypes.edit', $worktype->id) }}">{{ __('crud.edit') }}</a>
+                                                        @endcan
+                                                        @can('worktypes.delete')
+                                                            <form action="{{ action([App\Http\Controllers\WorkTypeController::class, 'destroy'], $worktype->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="text-red-600 hover:text-indigo-900">{{ __('crud.delete') }}</button>
+                                                            </form>
+                                                        @endcan
+                                                    </div>
                                                 </td>
                                             </tr>
                                             @endforeach

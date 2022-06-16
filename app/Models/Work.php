@@ -22,6 +22,9 @@ class Work extends Model
         'user_id'
     ];
 
+    protected $casts = [
+        'time_spent_min' => 'integer'
+    ];
 
     public function project(){
         return $this->belongsTo(Project::class);

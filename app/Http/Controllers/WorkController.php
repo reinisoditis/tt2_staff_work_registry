@@ -39,7 +39,7 @@ class WorkController extends Controller
         Work::create($request->all());
 
         return redirect()->route('dashboard')
-                        ->with('success','Work created successfully.');
+                        ->with('success', __('messages.wcs'));
     }
 
     public function destroy(Work $work)
@@ -47,7 +47,7 @@ class WorkController extends Controller
         $work->delete();
 
         return redirect()->route('dashboard')
-                        ->with('success','Work deleted successfully');
+                        ->with('success', __('messages.wds'));
     }
 
     public function edit(Work $work)
@@ -64,6 +64,6 @@ class WorkController extends Controller
         $work->update($request->all());
 
         return redirect()->route('dashboard')
-                        ->with('success','Work updated successfully');
+                        ->with('success', __('messages.wus'));
     }
 }
